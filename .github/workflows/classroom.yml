@@ -1,0 +1,98 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: q1
+      id: q1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: q1
+        setup-command: ''
+        command: python autograder.py -q q1
+        input: ''
+        expected-output: 'Question q1: 10/10'
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
+    - name: q2
+      id: q2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: q2
+        setup-command: ''
+        command: python autograder.py -q q2
+        input: ''
+        expected-output: 'Question q2: 10/10'
+        comparison-method: contains
+        timeout: 10
+        max-score: 10
+    - name: q3
+      id: q3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: q3
+        setup-command: ''
+        command: python autograder.py -q q3
+        input: ''
+        expected-output: 'Question q3: 20/20'
+        comparison-method: contains
+        timeout: 10
+        max-score: 20
+    - name: q4
+      id: q4
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: q4
+        setup-command: ''
+        command: python autograder.py -q q4
+        input: ''
+        expected-output: 'Question q4: 20/20'
+        comparison-method: contains
+        timeout: 10
+        max-score: 20
+    - name: q5
+      id: q5
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: q5
+        setup-command: ''
+        command: python autograder.py -q q5
+        input: ''
+        expected-output: 'Question q5: 20/20'
+        comparison-method: contains
+        timeout: 10
+        max-score: 20
+    - name: q6
+      id: q6
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: q6
+        setup-command: ''
+        command: python autograder.py -q q6
+        input: ''
+        expected-output: 'Question q6: 20/20'
+        comparison-method: contains
+        timeout: 10
+        max-score: 20
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        Q1_RESULTS: "${{steps.q1.outputs.result}}"
+        Q2_RESULTS: "${{steps.q2.outputs.result}}"
+        Q3_RESULTS: "${{steps.q3.outputs.result}}"
+        Q4_RESULTS: "${{steps.q4.outputs.result}}"
+        Q5_RESULTS: "${{steps.q5.outputs.result}}"
+        Q6_RESULTS: "${{steps.q6.outputs.result}}"
+      with:
+        runners: q1,q2,q3,q4,q5,q6
